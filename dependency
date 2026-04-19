@@ -1,0 +1,21 @@
+#6)dependency tree
+import nltk
+from nltk.grammar import DependencyGrammar
+from nltk.parse import ProjectiveDependencyParser
+
+# Define dependency grammar
+grammar = DependencyGrammar.fromstring("""
+'hit' -> 'boy' | 'ball'
+'boy' -> 'the'
+'ball' -> 'the'
+""")
+
+# Create parser
+parser = ProjectiveDependencyParser(grammar)
+
+# Input sentence
+sentence = "the boy hit the ball".split()
+
+# Parse and print tree
+for tree in parser.parse(sentence):
+    tree.pretty_print()
