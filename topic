@@ -1,0 +1,22 @@
+#4)topic boundary
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+
+X, y = np.array([[10], [1], [8], [0]]), np.array([0, 1, 0, 1])
+model = LogisticRegression().fit(X, y)
+
+def making(paras):
+    print("Paragraph 1:", paras[0])
+    shared = len(set(paras[0].lower().split()) & set(paras[1].lower().split()))
+
+    if model.predict([[shared]])[0] == 1:
+        print("\n--- NEW TOPIC DETECTED ---\n")
+        print("Paragraph 2:", paras[1])
+    else:
+        print("\n(Topic continues...)\n", paras[1])
+        
+full_text1 = "The Earth rotates every 24 hours. This creates day and night.\n\n This makes the earth has day and night."
+making(full_text1.split("\n\n"))
+
+full_text2 = "The Earth rotates every 24 hours. This creates day and night.\n\nVarhsith is lesbian.He is lesbain gate ranker"
+making(full_text2.split("\n\n"))
