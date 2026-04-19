@@ -1,0 +1,32 @@
+#7)sr parsing table
+import nltk
+from nltk import CFG
+from nltk.parse import ShiftReduceParser
+
+g = CFG.fromstring("""
+S -> NP VP
+NP -> DT NN
+VP -> V NP PP 
+PP -> P NP
+DT -> 'the'
+NN -> 'boy' | 'ball' | 'park'
+V -> 'hit'
+P -> 'along'
+""")
+
+p = ShiftReduceParser(g)
+s = "the boy hit the ball along the park".split()
+print("STACK\t\t\t\t\tINPUT\t\t\t\tACTION")
+stk = []
+inp = s[:]
+
+for w in s:
+    stk.append(w)
+    inp.pop(0)
+    print(stk, "\t", inp, "\tSHIFT")
+
+print(stk, "\t", inp, "\tREDUCE\n")
+
+for t in p.parse(s):
+    t.pretty_print()
+    break
