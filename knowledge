@@ -1,0 +1,30 @@
+#9)Knowledge based WSD algo
+from nltk.corpus import wordnet as wn
+
+def simple_lesk(sentence, word):
+    context = set(sentence.split())   # no tokenizer
+    senses = wn.synsets(word)
+
+    best_sense = None
+    max_overlap = 0
+
+    for sense in senses:
+        signature = set(sense.definition().split())
+        
+        overlap = len(context.intersection(signature))
+        
+        if overlap > max_overlap:
+            max_overlap = overlap
+            best_sense = sense
+
+    return best_sense
+
+# test
+sentence = "I went to the bank to deposit money"
+word = "bank"
+
+result = simple_lesk(sentence, word)
+
+print("Word:", word)
+print("Sense:", result.name())
+print("Definition:", result.definition())
