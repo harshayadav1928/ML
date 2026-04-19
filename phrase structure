@@ -1,0 +1,28 @@
+#5)phrase structure tree
+import nltk
+from nltk import CFG
+from nltk.tree import Tree
+
+# Grammar with Prepositional Phrase
+grammar = CFG.fromstring("""
+S  -> NP VP
+NP -> DT NN
+VP -> V NP
+VP -> V NP PP
+PP -> P NP
+
+DT -> 'the'
+NN -> 'boy' | 'ball' | 'bat'
+V  -> 'hit'
+P  -> 'with'
+""")
+
+# Create Chart Parser
+parser = nltk.ChartParser(grammar)
+
+# Sentence with preposition
+sentence = "the boy hit the ball with the bat".split()
+
+# Parse and display trees
+for tree in parser.parse(sentence):
+    tree.pretty_print()
