@@ -1,0 +1,33 @@
+#10)Supervised based WSD algo(NO scikit learn)(idi ehh sadavandi)
+import nltk
+
+# Training data (sentence, sense)
+training_data = [
+    ("I deposited money in the bank", "finance"),
+    ("She works at a bank", "finance"),
+    ("He sat on the river bank", "river"),
+    ("The river overflowed near the bank", "river")
+]
+
+# Feature extraction (NO tokenizer)
+def extract_features(sentence):
+    words = sentence.lower().split()
+    return {word: True for word in words}
+
+# Prepare training set
+train_set = [(extract_features(sent), sense) for (sent, sense) in training_data]
+
+# Train classifier (works offline)
+classifier = nltk.NaiveBayesClassifier.train(train_set)
+
+# Test sentence
+test_sentence = "I went to the bank to withdraw cash"
+
+# Extract features
+test_features = extract_features(test_sentence)
+
+# Predict
+result = classifier.classify(test_features)
+
+print("Sentence:", test_sentence)
+print("Predicted Sense:", result)
