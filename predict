@@ -1,0 +1,29 @@
+#11)Predicate Argument Structure
+import nltk
+
+# Sample sentence
+sentence = "Ram eats mango"
+
+# Step 1: Tokenization using split (safe)
+words = sentence.split()
+
+# Step 2: Use NLTK FreqDist (just to show NLTK usage)
+freq = nltk.FreqDist(words)
+
+# Step 3: Rule-based verb detection
+verbs = ["eat", "eats", "run", "runs", "go", "goes"]
+
+predicate = None
+arguments = []
+
+for word in words:
+    if word.lower() in verbs and predicate is None:
+        predicate = word
+    else:
+        arguments.append(word)
+
+# Output
+print("Sentence:", sentence)
+print("Word Frequency (NLTK used):", freq)
+print("Predicate:", predicate)
+print("Arguments:", arguments)
